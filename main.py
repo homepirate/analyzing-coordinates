@@ -1,10 +1,11 @@
 from haversine import haversine
+import pandas as pd
 
 
 class Point:
     """Класс точек"""
     def __init__(self, name, coords):
-        self.name = name
+        self.name = name.strip()
         self.latitude = float(coords.split(',')[0].strip())
         self.longitude = float(coords.split(',')[1].strip())
 
@@ -96,20 +97,35 @@ class BST:
         return result
 
 
-def open_csv(filename):
-    pass
+def open_csv(file_path):
+    if file_path.endswith('.csv'):
+        data = pd.read_csv(file_path, delimiter=';', header=None)
+    elif file_path.endswith('.xls') or file_path.endswith('.xlsx'):
+        data = pd.read_excel(file_path, header=None)
+    else:
+        print("Unsupported file format. Please provide a CSV, XLS, or XLSX file.")
+        return []
+
+    points = []
+    for index, row in data.iterrows():
+        new_point = Point(row.iloc[0], row.iloc[1])
+        points.append(new_point)
+
+    return points
 
 
 def main():
-    mn = MainPoint("fff", "1.2, 3.4")
-    points = [Point("point1", "34.1, 14.2"), Point("point2", "1.1, 3.4"), Point("point3", "1.2, 3.3"),
-              Point("point4", "44.1, 44.2"),]
-    mn.make_bst(points)
-    print(mn.get_nears(limit=2))
-    print(haversine((1.2, 3.4), (34.1, 14.2)))
-    print(haversine((1.2, 3.4), (1.1, 3.4)))
-    print(haversine((1.2, 3.4), (1.2, 3.3)))
-    print(haversine((55.613305, 37.604573), (55.612314, 37.589143)))
+    # mn = MainPoint("fff", "1.2, 3.4")
+    # points = [Point("point1", "34.1, 14.2"), Point("point2", "1.1, 3.4"), Point("point3", "1.2, 3.3"),
+    #           Point("point4", "44.1, 44.2"),]
+    # mn.make_bst(points)
+    # print(mn.get_nears(limit=2))
+    # print(haversine((1.2, 3.4), (34.1, 14.2)))
+    # print(haversine((1.2, 3.4), (1.1, 3.4)))
+    # print(haversine((1.2, 3.4), (1.2, 3.3)))
+    # print(haversine((55.613305, 37.604573), (55.612314, 37.589143)))
+    print(open_csv("test_data/A.csv"))
+    print(open_csv("test_data/A.xlsx"))
 
 
 if __name__ == '__main__':
