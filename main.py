@@ -97,7 +97,7 @@ class BST:
         return result
 
 
-def open_csv(file_path):
+def open_files(file_path):
     if file_path.endswith('.csv'):
         data = pd.read_csv(file_path, delimiter=';', header=None)
     elif file_path.endswith('.xls') or file_path.endswith('.xlsx'):
