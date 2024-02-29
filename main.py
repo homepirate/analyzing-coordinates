@@ -124,8 +124,8 @@ def main():
     # print(haversine((1.2, 3.4), (1.1, 3.4)))
     # print(haversine((1.2, 3.4), (1.2, 3.3)))
     # print(haversine((55.613305, 37.604573), (55.612314, 37.589143)))
-    print(open_csv("test_data/A.csv"))
-    print(open_csv("test_data/A.xlsx"))
+    print(open_files("test_data/A.csv"))
+    print(open_files("test_data/A.xlsx"))
 
 
 if __name__ == '__main__':
