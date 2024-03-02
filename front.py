@@ -50,7 +50,6 @@ def save_result(entry_number, info_label):
         info_label.config(text="Выберите файл А и файл В", fg="red")
 
 
-
 def make_window():
     # Создаем главное окно
     root = tk.Tk()
