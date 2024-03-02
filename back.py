@@ -3,6 +3,8 @@ import json
 from haversine import haversine
 import pandas as pd
 
+from castom_error import *
+
 
 class Point:
     """Класс точек"""
@@ -176,7 +178,7 @@ def create_xlsx_from_json(result_json_array, file_path):
     df.to_excel(file_path, index=False)
 
 
-def main():
+def test():
     LIMIT = 3
     # mn = MainPoint("fff", "1.2, 3.4")
     # points = [Point("point1", "34.1, 14.2"), Point("point2", "1.1, 3.4"), Point("point3", "1.2, 3.3"),
@@ -200,5 +202,18 @@ def main():
     # print(make_arrays("test_data/A.xlsx", "test_data/B.xlsx"))
 
 
+def start(file_a, file_b, file_res, limit):
+    result_json_array = []
+    try:
+        main_points, points = make_arrays(file_a, file_b)
+    except:
+        raise FileDataException("Ошибка в форматах данных или в расширение файла")
+    for mp in main_points:
+        mp.make_bst(points)
+        result_json_array.append(mp.make_json(limit))
+
+    create_xlsx_from_json(result_json_array, file_res)
+
+
 if __name__ == '__main__':
-    main()
+    test()
